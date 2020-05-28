@@ -8,7 +8,7 @@
 using namespace std;
 
 void CreateComplexNumber(double& cReal, double& cImag, complex<double>& complexNumber);
-void MakeOperation(vector<complex<double>> cNumbers);
+complex<double> MakeOperation(vector<complex<double>> cNumbers);
 
 int main()
 {
@@ -17,21 +17,30 @@ int main()
     SetConsoleOutputCP(1251);
 
     double cReal, cImag;
+    bool isSaveNumber = false;
     vector<complex<double>> cNumbers(2);
     while (true)
     {
-        cout << "Перше" << endl;        
-        CreateComplexNumber(cReal, cImag, cNumbers[0]);
+        cout << "Перше" << endl;
+        if (!isSaveNumber) 
+        {
+            CreateComplexNumber(cReal, cImag, cNumbers[0]);
+        }
+        else
+        {
+            cout << "Комплексне число " << cNumbers[0] << endl;
+        }
         cout << "\nДруге" << endl;
         CreateComplexNumber(cReal, cImag, cNumbers[1]);
 
-        MakeOperation(cNumbers);    
+        complex<double> result = MakeOperation(cNumbers);    
         char answer;
-
+        isSaveNumber = false;
         while (true)
         {
-            cout << "Продовжити?   y/n" << endl;
+            cout << "Продовжити/Зберегти число?   y - продовжити n - вийти s - зберегти і продовжити" << endl;
             cin >> answer;
+            
             if (answer == 'y')
             {
                 system("cls");
@@ -41,6 +50,13 @@ int main()
             {
                 return 1;
             }
+            else if (answer == 's')
+            {
+                cNumbers[0] = result;
+                isSaveNumber = true;
+                system("cls");
+                break;
+            }
         }
         
         
@@ -48,31 +64,33 @@ int main()
 
 }
 
-void MakeOperation(vector<complex<double>> cNumbers)
+complex<double> MakeOperation(vector<complex<double>> cNumbers)
 {
     bool isSelectedOperation = false;
+    complex<double> result;
     while (!isSelectedOperation)
     {
-        int operation;
+        int operation;        
         cout << "Виберіть операцію:\n";
         cout << " 1 + \n 2 - \n 3 * \n 4 / \n";
         cin >> operation;
+        
         switch (operation)
         {
         case 1:
-            cout << cNumbers[0] + cNumbers[1];
+            result = cNumbers[0] + cNumbers[1];
             isSelectedOperation = true;
             break;
         case 2:
-            cout << cNumbers[0] - cNumbers[1];
+            result = cNumbers[0] - cNumbers[1];
             isSelectedOperation = true;
             break;
         case 3:
-            cout << cNumbers[0] * cNumbers[1];
+            result = cNumbers[0] * cNumbers[1];
             isSelectedOperation = true;
             break;
         case 4:            
-            cout << cNumbers[0] / cNumbers[1];
+            result = cNumbers[0] / cNumbers[1];
             isSelectedOperation = true;
             break;
         default:
@@ -80,12 +98,13 @@ void MakeOperation(vector<complex<double>> cNumbers)
             break;
         }
     }
-    cout << endl;
+    cout << result << endl;
+    return result;
 }
 
 void CreateComplexNumber(double& cReal, double& cImag, complex<double>& complexNumber)
 {
-    cout << "Введіть реальну частину частину" << endl;
+    cout << "Введіть реальну частину числа" << endl;
     cin >> cReal;
     cout << "Введіть мниму частину числа" << endl;
     cin >> cImag;
