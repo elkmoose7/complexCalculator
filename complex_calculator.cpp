@@ -2,6 +2,7 @@
 #include <complex>
 #include <locale>
 #include <vector>
+#include <string>
 #include <Windows.h>
 
 using namespace std;
@@ -24,7 +25,25 @@ int main()
         cout << "\nДруге" << endl;
         CreateComplexNumber(cReal, cImag, cNumbers[1]);
 
-        MakeOperation(cNumbers);       
+        MakeOperation(cNumbers);    
+        char answer;
+
+        while (true)
+        {
+            cout << "Продовжити?   y/n" << endl;
+            cin >> answer;
+            if (answer == 'y')
+            {
+                system("cls");
+                break;
+            }
+            else if (answer == 'n')
+            {
+                return 1;
+            }
+        }
+        
+        
     } 
 
 }
