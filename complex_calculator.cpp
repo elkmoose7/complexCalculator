@@ -7,6 +7,7 @@
 using namespace std;
 
 void CreateComplexNumber(double& cReal, double& cImag, complex<double>& complexNumber);
+void MakeOperation(vector<complex<double>> cNumbers);
 
 int main()
 {
@@ -23,8 +24,44 @@ int main()
         cout << "\nДруге" << endl;
         CreateComplexNumber(cReal, cImag, cNumbers[1]);
 
+        MakeOperation(cNumbers);       
     } 
 
+}
+
+void MakeOperation(vector<complex<double>> cNumbers)
+{
+    bool isSelectedOperation = false;
+    while (!isSelectedOperation)
+    {
+        int operation;
+        cout << "Виберіть операцію:\n";
+        cout << " 1 + \n 2 - \n 3 * \n 4 / \n";
+        cin >> operation;
+        switch (operation)
+        {
+        case 1:
+            cout << cNumbers[0] + cNumbers[1];
+            isSelectedOperation = true;
+            break;
+        case 2:
+            cout << cNumbers[0] - cNumbers[1];
+            isSelectedOperation = true;
+            break;
+        case 3:
+            cout << cNumbers[0] * cNumbers[1];
+            isSelectedOperation = true;
+            break;
+        case 4:            
+            cout << cNumbers[0] / cNumbers[1];
+            isSelectedOperation = true;
+            break;
+        default:
+            operation = 1;
+            break;
+        }
+    }
+    cout << endl;
 }
 
 void CreateComplexNumber(double& cReal, double& cImag, complex<double>& complexNumber)
